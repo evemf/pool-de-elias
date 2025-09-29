@@ -38,9 +38,15 @@ function pool_de_elias_custom_admin_footer() {
 }
 add_filter('admin_footer_text', 'pool_de_elias_custom_admin_footer');
 
-// Personalizar el enlace de la página de inicio
-function pool_de_elias_custom_home_url() {
-    return home_url('/home');
+// Personalizar el enlace de la página de inicio sin romper otras rutas
+function pool_de_elias_custom_home_url( $url, $path, $orig_scheme, $blog_id ) {
+    // Solo alteramos la URL cuando no se solicita un path concreto.
+    if ( '' === $path || '/' === $path ) {
+        $home_base = untrailingslashit( get_option( 'home' ) );
+        return trailingslashit( $home_base . '/home' );
+    }
+
+    return $url;
 }
-add_filter('home_url', 'pool_de_elias_custom_home_url');
+add_filter( 'home_url', 'pool_de_elias_custom_home_url', 10, 4 );
 ?>
