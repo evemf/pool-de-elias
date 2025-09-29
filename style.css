@@ -1,191 +1,481 @@
 /*
 Theme Name: Pool de Elias
-Theme URI: http://example.com/pool-de-elias
+Theme URI: https://example.com/pool-de-elias
 Author: Evelia Molina
-Author URI: http://example.com
-Description: Tema de WordPress para la asociación deportiva de Pool de Elias
-Version: 1.0
-License: GPL2
-License URI: http://www.gnu.org/licenses/gpl-2.0.html
+Author URI: https://example.com
+Description: Tema personalizado para la liga de pool de Elias con gestión de competiciones y dashboard privado.
+Version: 1.0.0
+License: GPL-2.0-or-later
+License URI: https://www.gnu.org/licenses/gpl-2.0.html
 Text Domain: pool-de-elias
+Tags: custom-dashboard, sports, responsive, woocommerce
 */
 
-/* ------------------------------------------------------------- */
-/* Paleta de colores                                            */
-/* ------------------------------------------------------------- */
-
 :root {
-    --color-primary: #D34D23;    /* Naranja cálido (tono otoñal principal) */
-    --color-secondary: #C68544;  /* Marrón cálido */
-    --color-accent: #F1A13C;     /* Amarillo/dorado (acento) */
-    --color-light: #F9F9F9;      /* Color de fondo claro */
-    --color-dark: #333333;       /* Texto oscuro */
-    --color-background: #faf3e0; /* Color de fondo suave (tono pastel) */
-    --color-footer-bg: #222222;  /* Fondo oscuro del pie de página */
-    --color-link: #D34D23;       /* Color de enlace principal */
-    --color-link-hover: #b33a16; /* Color de enlace al pasar el ratón */
+    --pde-primary: #d34d23;
+    --pde-primary-dark: #a33a19;
+    --pde-secondary: #c68544;
+    --pde-accent: #f1a13c;
+    --pde-bg: #faf3e0;
+    --pde-dark: #1f1f1f;
+    --pde-muted: #666;
+    --pde-border: #e1d7c8;
+    --pde-radius: 16px;
+    --pde-shadow: 0 18px 30px rgba(0,0,0,0.08);
+    --pde-transition: all .25s ease;
 }
 
-/* ------------------------------------------------------------- */
-/* Estilos Generales y Configuración del Tema                   */
-/* ------------------------------------------------------------- */
-
 body {
-    font-family: 'Arial', sans-serif;
+    font-family: 'Inter', 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: var(--pde-bg);
+    color: var(--pde-dark);
     margin: 0;
-    padding: 0;
-    background-color: var(--color-background);
-    color: var(--color-dark);
+    line-height: 1.6;
 }
 
 a {
-    color: var(--color-link);
+    color: var(--pde-primary);
     text-decoration: none;
-    transition: color 0.3s ease;
+    transition: var(--pde-transition);
 }
 
-a:hover {
-    color: var(--color-link-hover);
+a:hover,
+a:focus {
+    color: var(--pde-primary-dark);
 }
 
-/* ------------------------------------------------------------- */
-/* Cabecera (Header)                                            */
-/* ------------------------------------------------------------- */
-
-header {
-    background-color: var(--color-primary);
-    color: white;
-    padding: 20px 0;
-    text-align: center;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+/* Header --------------------------------------------------- */
+.site-header {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(6px);
+    border-bottom: 1px solid rgba(0,0,0,0.05);
 }
 
-header .logo img {
-    max-height: 80px;
+.site-header__inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2rem;
+    padding: 1rem 5vw;
+}
+
+.site-logo img {
+    max-height: 64px;
     width: auto;
 }
 
-header h1 {
-    font-size: 2.5em;
-    margin: 10px 0;
+.primary-menu {
+    display: flex;
+    gap: 1.5rem;
+    font-weight: 600;
 }
 
-nav {
-    margin-top: 10px;
+.primary-menu a {
+    color: var(--pde-dark);
 }
 
-nav ul {
+.primary-menu a:hover,
+.primary-menu .current-menu-item > a {
+    color: var(--pde-primary);
+}
+
+.site-header__actions {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.site-header__actions .pde-button {
+    padding: .6rem 1rem;
+}
+
+.pde-header-cart {
+    display: inline-flex;
+    align-items: center;
+    gap: .25rem;
+    color: var(--pde-dark);
+    position: relative;
+}
+
+.pde-cart-count {
+    display: inline-flex;
+    min-width: 20px;
+    justify-content: center;
+    align-items: center;
+    background: var(--pde-primary);
+    color: #fff;
+    border-radius: 999px;
+    padding: 2px 6px;
+    font-size: .75rem;
+}
+
+.pde-mini-cart {
+    display: none;
+    position: absolute;
+    right: 0;
+    margin-top: .75rem;
+    background: #fff;
+    box-shadow: var(--pde-shadow);
+    border-radius: var(--pde-radius);
+    padding: 1rem;
+    width: min(320px, 90vw);
+}
+
+.pde-mini-cart.is-open {
+    display: block;
+}
+
+/* Buttons -------------------------------------------------- */
+.pde-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: .5rem;
+    font-weight: 600;
+    border-radius: 999px;
+    border: none;
+    cursor: pointer;
+    transition: var(--pde-transition);
+    text-decoration: none;
+}
+
+.pde-button--primary {
+    background: var(--pde-primary);
+    color: #fff;
+    padding: .75rem 1.75rem;
+}
+
+.pde-button--primary:hover {
+    background: var(--pde-primary-dark);
+}
+
+.pde-button--secondary {
+    background: #fff;
+    color: var(--pde-primary);
+    border: 1px solid var(--pde-primary);
+    padding: .7rem 1.5rem;
+}
+
+.pde-button--ghost {
+    background: transparent;
+    color: #fff;
+    border: 1px solid rgba(255,255,255,0.4);
+    padding: .7rem 1.5rem;
+}
+
+/* Hero ----------------------------------------------------- */
+.pde-hero {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 60vh;
+    color: #fff;
+    text-align: center;
+    background-size: cover;
+    background-position: center;
+}
+
+.pde-hero--left { justify-content: flex-start; text-align: left; }
+.pde-hero--right { justify-content: flex-end; text-align: right; }
+.pde-hero--sm { min-height: 40vh; }
+.pde-hero--lg { min-height: 80vh; }
+
+.pde-hero__overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(130deg, rgba(0,0,0,.85), rgba(0,0,0,.35));
+}
+
+.pde-hero__content {
+    position: relative;
+    z-index: 1;
+    padding: 3rem;
+    max-width: 680px;
+}
+
+.pde-hero__content h1 {
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    margin-bottom: 1rem;
+}
+
+.pde-hero__content p {
+    font-size: 1.125rem;
+    margin-bottom: 1.5rem;
+}
+
+/* Cards & layout ------------------------------------------ */
+.pde-card {
+    background: #fff;
+    border-radius: var(--pde-radius);
+    padding: 2rem;
+    box-shadow: var(--pde-shadow);
+    margin-bottom: 2rem;
+}
+
+.pde-content {
+    color: var(--pde-dark);
+}
+
+.pde-content p {
+    margin-bottom: 1rem;
+}
+
+.pde-card--competition header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+}
+
+.pde-competition-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1.5rem;
+}
+
+.pde-pill {
+    display: inline-flex;
+    align-items: center;
+    background: rgba(211,77,35,0.1);
+    color: var(--pde-primary);
+    padding: .25rem .75rem;
+    border-radius: 999px;
+    font-weight: 600;
+    font-size: .85rem;
+}
+
+.pde-meta-list {
     list-style: none;
     padding: 0;
-    text-align: center;
+    margin: 1rem 0;
 }
 
-nav ul li {
-    display: inline-block;
-    margin: 0 15px;
+.pde-meta-list li {
+    margin-bottom: .35rem;
 }
 
-nav ul li a {
-    color: white;
-    font-size: 1.2em;
+/* Dashboard ------------------------------------------------ */
+.pde-dashboard {
+    display: grid;
+    grid-template-columns: 220px 1fr;
+    gap: 2rem;
+    align-items: flex-start;
 }
 
-nav ul li a:hover {
-    color: var(--color-accent);
-}
-
-/* ------------------------------------------------------------- */
-/* Estilo para el contenido (contenedores y secciones)           */
-/* ------------------------------------------------------------- */
-
-.container {
-    width: 90%;
+.pde-dashboard-wrapper {
     max-width: 1200px;
     margin: 0 auto;
 }
 
-section {
-    margin: 30px 0;
-    padding: 20px;
-    background-color: white;
-    border-radius: 8px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+.pde-dashboard__sidebar {
+    background: #fff;
+    border-radius: var(--pde-radius);
+    box-shadow: var(--pde-shadow);
+    padding: 1.5rem;
+    position: sticky;
+    top: 100px;
 }
 
-/* ------------------------------------------------------------- */
-/* Estilos de Formularios                                       */
-/* ------------------------------------------------------------- */
-
-form {
-    background-color: white;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    margin-top: 20px;
-    max-width: 400px;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-form input, form select {
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 15px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-}
-
-form input[type="submit"] {
-    background-color: var(--color-primary);
-    color: white;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-form input[type="submit"]:hover {
-    background-color: var(--color-accent);
-}
-
-/* ------------------------------------------------------------- */
-/* Pie de página (Footer)                                       */
-/* ------------------------------------------------------------- */
-
-footer {
-    background-color: var(--color-footer-bg);
-    color: white;
-    text-align: center;
-    padding: 15px;
-    font-size: 1.2em;
-}
-
-footer p {
+.pde-dashboard__sidebar ul {
+    list-style: none;
     margin: 0;
+    padding: 0;
+    display: grid;
+    gap: .75rem;
 }
 
-/* ------------------------------------------------------------- */
-/* Estilos Responsive                                           */
-/* ------------------------------------------------------------- */
+.pde-dashboard__sidebar a {
+    font-weight: 600;
+    color: var(--pde-dark);
+}
+
+.pde-dashboard__content {
+    display: grid;
+    gap: 2rem;
+}
+
+.pde-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 1.5rem;
+}
+
+.pde-stat {
+    background: rgba(255,255,255,0.6);
+    border: 1px solid rgba(211,77,35,0.15);
+    border-radius: var(--pde-radius);
+    padding: 1.5rem;
+    text-align: center;
+}
+
+.pde-stat__number {
+    font-size: 2.25rem;
+    font-weight: 700;
+    color: var(--pde-primary);
+}
+
+.pde-stat__label {
+    display: block;
+    margin-top: .5rem;
+    color: var(--pde-muted);
+    font-weight: 600;
+}
+
+.pde-definition {
+    display: grid;
+    gap: 1rem;
+}
+
+.pde-definition dt {
+    font-weight: 600;
+    color: var(--pde-muted);
+}
+
+.pde-table {
+    width: 100%;
+    border-collapse: collapse;
+    overflow: hidden;
+    border-radius: var(--pde-radius);
+}
+
+.pde-table th,
+.pde-table td {
+    padding: .85rem 1rem;
+    border-bottom: 1px solid var(--pde-border);
+}
+
+.pde-table th {
+    background: rgba(0,0,0,0.04);
+    text-align: left;
+}
+
+.pde-result-block ul {
+    list-style: none;
+    margin: 1rem 0 0;
+    padding: 0;
+    display: grid;
+    gap: .5rem;
+}
+
+.pde-result-block header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 1rem;
+}
+
+.pde-subcompetitions {
+    margin-top: 1.5rem;
+    display: grid;
+    gap: .75rem;
+}
+
+.pde-sub-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    padding: .75rem 1rem;
+    border: 1px solid var(--pde-border);
+    border-radius: var(--pde-radius);
+}
+
+/* Forms ---------------------------------------------------- */
+.pde-form {
+    display: grid;
+    gap: 1rem;
+    margin: 2rem auto;
+    max-width: 560px;
+}
+
+.pde-form--enroll {
+    margin: 0;
+    max-width: none;
+    display: inline-flex;
+}
+
+.pde-form label {
+    font-weight: 600;
+    display: block;
+    margin-bottom: .35rem;
+}
+
+.pde-form input,
+.pde-form select,
+.pde-form textarea {
+    width: 100%;
+    padding: .75rem 1rem;
+    border-radius: 12px;
+    border: 1px solid rgba(0,0,0,0.08);
+    background: rgba(255,255,255,0.9);
+    font-size: 1rem;
+}
+
+.pde-form__privacy label {
+    display: flex;
+    align-items: flex-start;
+    gap: .5rem;
+}
+
+.pde-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1rem;
+}
+
+.pde-notice {
+    padding: 1rem 1.25rem;
+    border-radius: 12px;
+}
+
+.pde-notice--success {
+    background: rgba(71, 191, 107, 0.15);
+    color: #2f7a46;
+}
+
+/* Footer --------------------------------------------------- */
+.site-footer {
+    text-align: center;
+    padding: 2rem;
+    background: #111;
+    color: #fff;
+    margin-top: 4rem;
+}
+
+/* Responsive ---------------------------------------------- */
+@media (max-width: 960px) {
+    .pde-dashboard {
+        grid-template-columns: 1fr;
+    }
+
+    .pde-dashboard__sidebar {
+        position: static;
+        display: flex;
+        overflow-x: auto;
+    }
+
+    .pde-dashboard__sidebar ul {
+        display: flex;
+        gap: 1rem;
+    }
+}
 
 @media (max-width: 768px) {
-    header h1 {
-        font-size: 2em;
+    .site-header__inner {
+        flex-direction: column;
+        gap: 1rem;
     }
 
-    nav ul {
-        text-align: center;
+    .primary-menu {
+        flex-wrap: wrap;
+        justify-content: center;
     }
 
-    nav ul li {
-        display: block;
-        margin-bottom: 10px;
-    }
-
-    .container {
-        width: 95%;
-    }
-
-    form {
-        width: 100%;
-        max-width: none;
+    .pde-hero__content {
+        padding: 2rem;
     }
 }

@@ -1,59 +1,20 @@
 <?php
-/**
- * Plantilla para mostrar los archivos de contenido (como la lista de competiciones)
- */
-get_header(); ?>
-
-<div class="container">
-    <header class="page-header">
-        <h1 class="page-title"><?php _e( 'Competiciones', 'pool-de-elias' ); ?></h1>
-    </header>
-
+get_header();
+?>
+<section class="pde-section">
+    <h1 class="pde-section__title"><?php the_archive_title(); ?></h1>
     <?php if ( have_posts() ) : ?>
-
-        <div class="competitions-list">
-            <?php
-            // Iniciar el loop de WordPress
-            while ( have_posts() ) : the_post(); ?>
-
-                <article class="competition-item">
-                    <header class="competition-header">
-                        <h2 class="competition-title">
-                            <a href="<?php the_permalink(); ?>"><?php the_title(); ?></a>
-                        </h2>
-                        <p class="competition-date">
-                            <?php echo get_the_date(); ?>
-                        </p>
-                    </header>
-
-                    <div class="competition-excerpt">
-                        <?php the_excerpt(); ?>
-                    </div>
-
-                    <footer class="competition-footer">
-                        <a href="<?php the_permalink(); ?>" class="read-more"><?php _e( 'Ver más', 'pool-de-elias' ); ?></a>
-                    </footer>
-                </article>
-
-            <?php endwhile; ?>
-
-        </div>
-
-        <!-- Navegación de Páginas -->
-        <div class="pagination">
-            <?php
-            the_posts_pagination( array(
-                'prev_text' => __( 'Anterior', 'pool-de-elias' ),
-                'next_text' => __( 'Siguiente', 'pool-de-elias' ),
-            ) );
-            ?>
-        </div>
-
+        <?php while ( have_posts() ) : the_post(); ?>
+            <article <?php post_class( 'pde-card' ); ?>>
+                <h2><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h2>
+                <p class="pde-meta-list"><span><?php echo esc_html( get_the_date() ); ?></span></p>
+                <div class="pde-content"><?php the_excerpt(); ?></div>
+                <a class="pde-button pde-button--secondary" href="<?php the_permalink(); ?>"><?php esc_html_e( 'Leer más', PDE_TEXTDOMAIN ); ?></a>
+            </article>
+        <?php endwhile; ?>
+        <?php the_posts_pagination(); ?>
     <?php else : ?>
-
-        <p><?php _e( 'No se han encontrado competiciones.', 'pool-de-elias' ); ?></p>
-
+        <div class="pde-card"><p><?php esc_html_e( 'No hay contenido disponible.', PDE_TEXTDOMAIN ); ?></p></div>
     <?php endif; ?>
-</div>
-
+</section>
 <?php get_footer(); ?>

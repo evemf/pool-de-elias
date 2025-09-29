@@ -1,36 +1,19 @@
-<?php get_header(); ?>
-
-<!-- Zona Hero -->
-<section class="hero" style="background-image: url('<?php echo esc_url(get_theme_mod('hero_background_image')); ?>');">
-    <div class="hero-content">
-        <h1><?php echo esc_html(get_theme_mod('hero_title', 'Bienvenido a Pool de Elias')); ?></h1>
-        <p><?php echo esc_html(get_theme_mod('hero_subtitle', '¡La mejor plataforma de competiciones de billar!')); ?></p>
-        <a href="#shop" class="btn-hero" style="background-color: <?php echo esc_attr(get_theme_mod('hero_button_color', '#F1A13C')); ?>;">
-            <?php echo esc_html(get_theme_mod('hero_button_text', 'Jugar')); ?>
-        </a>
-    </div>
+<?php
+get_header();
+?>
+<section class="pde-section">
+    <?php if ( have_posts() ) : ?>
+        <?php while ( have_posts() ) : the_post(); ?>
+            <article <?php post_class( 'pde-card' ); ?>>
+                <h2><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h2>
+                <p class="pde-meta-list"><span><?php echo esc_html( get_the_date() ); ?></span> · <span><?php the_author(); ?></span></p>
+                <div class="pde-content"><?php the_excerpt(); ?></div>
+                <a class="pde-button pde-button--secondary" href="<?php the_permalink(); ?>"><?php esc_html_e( 'Leer más', PDE_TEXTDOMAIN ); ?></a>
+            </article>
+        <?php endwhile; ?>
+        <?php the_posts_pagination(); ?>
+    <?php else : ?>
+        <div class="pde-card"><p><?php esc_html_e( 'No hay entradas disponibles.', PDE_TEXTDOMAIN ); ?></p></div>
+    <?php endif; ?>
 </section>
-
-<!-- Sección de Tienda -->
-<section id="shop" class="shop">
-    <div class="container">
-        <h2>Tiendas de Accesorios de Billar</h2>
-        <p>Encuentra los mejores productos para mejorar tu juego.</p>
-
-        <!-- Aquí puedes agregar los productos de tu tienda -->
-        <div class="product-list">
-            <div class="product-item">
-                <img src="path-to-product-image.jpg" alt="Cuesport Ball" />
-                <h3>Cuesport Ball</h3>
-                <p>Precio: $20</p>
-            </div>
-            <div class="product-item">
-                <img src="path-to-product-image.jpg" alt="Cuesport Stick" />
-                <h3>Cuesport Stick</h3>
-                <p>Precio: $50</p>
-            </div>
-        </div>
-    </div>
-</section>
-
 <?php get_footer(); ?>
