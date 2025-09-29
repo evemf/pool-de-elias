@@ -1,0 +1,191 @@
+/*
+Theme Name: Pool de Elias
+Theme URI: http://example.com/pool-de-elias
+Author: Evelia Molina
+Author URI: http://example.com
+Description: Tema de WordPress para la asociación deportiva de Pool de Elias
+Version: 1.0
+License: GPL2
+License URI: http://www.gnu.org/licenses/gpl-2.0.html
+Text Domain: pool-de-elias
+*/
+
+/* ------------------------------------------------------------- */
+/* Paleta de colores                                            */
+/* ------------------------------------------------------------- */
+
+:root {
+    --color-primary: #D34D23;    /* Naranja cálido (tono otoñal principal) */
+    --color-secondary: #C68544;  /* Marrón cálido */
+    --color-accent: #F1A13C;     /* Amarillo/dorado (acento) */
+    --color-light: #F9F9F9;      /* Color de fondo claro */
+    --color-dark: #333333;       /* Texto oscuro */
+    --color-background: #faf3e0; /* Color de fondo suave (tono pastel) */
+    --color-footer-bg: #222222;  /* Fondo oscuro del pie de página */
+    --color-link: #D34D23;       /* Color de enlace principal */
+    --color-link-hover: #b33a16; /* Color de enlace al pasar el ratón */
+}
+
+/* ------------------------------------------------------------- */
+/* Estilos Generales y Configuración del Tema                   */
+/* ------------------------------------------------------------- */
+
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: var(--color-background);
+    color: var(--color-dark);
+}
+
+a {
+    color: var(--color-link);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+a:hover {
+    color: var(--color-link-hover);
+}
+
+/* ------------------------------------------------------------- */
+/* Cabecera (Header)                                            */
+/* ------------------------------------------------------------- */
+
+header {
+    background-color: var(--color-primary);
+    color: white;
+    padding: 20px 0;
+    text-align: center;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+header .logo img {
+    max-height: 80px;
+    width: auto;
+}
+
+header h1 {
+    font-size: 2.5em;
+    margin: 10px 0;
+}
+
+nav {
+    margin-top: 10px;
+}
+
+nav ul {
+    list-style: none;
+    padding: 0;
+    text-align: center;
+}
+
+nav ul li {
+    display: inline-block;
+    margin: 0 15px;
+}
+
+nav ul li a {
+    color: white;
+    font-size: 1.2em;
+}
+
+nav ul li a:hover {
+    color: var(--color-accent);
+}
+
+/* ------------------------------------------------------------- */
+/* Estilo para el contenido (contenedores y secciones)           */
+/* ------------------------------------------------------------- */
+
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+section {
+    margin: 30px 0;
+    padding: 20px;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* ------------------------------------------------------------- */
+/* Estilos de Formularios                                       */
+/* ------------------------------------------------------------- */
+
+form {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
+    max-width: 400px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+form input, form select {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+form input[type="submit"] {
+    background-color: var(--color-primary);
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+form input[type="submit"]:hover {
+    background-color: var(--color-accent);
+}
+
+/* ------------------------------------------------------------- */
+/* Pie de página (Footer)                                       */
+/* ------------------------------------------------------------- */
+
+footer {
+    background-color: var(--color-footer-bg);
+    color: white;
+    text-align: center;
+    padding: 15px;
+    font-size: 1.2em;
+}
+
+footer p {
+    margin: 0;
+}
+
+/* ------------------------------------------------------------- */
+/* Estilos Responsive                                           */
+/* ------------------------------------------------------------- */
+
+@media (max-width: 768px) {
+    header h1 {
+        font-size: 2em;
+    }
+
+    nav ul {
+        text-align: center;
+    }
+
+    nav ul li {
+        display: block;
+        margin-bottom: 10px;
+    }
+
+    .container {
+        width: 95%;
+    }
+
+    form {
+        width: 100%;
+        max-width: none;
+    }
+}
