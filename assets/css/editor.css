@@ -1,0 +1,16 @@
+/* Estilos del editor para armonizar con el front */
+:root {
+    --pde-primary: #d34d23;
+    --pde-secondary: #c68544;
+    --pde-bg: #faf3e0;
+}
+
+.editor-styles-wrapper {
+    font-family: 'Inter', 'Segoe UI', sans-serif;
+    color: #333;
+    background-color: var(--pde-bg);
+}
+
+.editor-styles-wrapper .wp-block a {
+    color: var(--pde-primary);
+}
